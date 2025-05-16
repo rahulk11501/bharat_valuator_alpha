@@ -1,0 +1,11 @@
+{
+  "name": "app",
+  "private": true,
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.9",
+    "react-chartjs-2": "^5.3.0"
+  }
+}

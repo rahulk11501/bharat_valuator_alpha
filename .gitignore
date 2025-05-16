@@ -33,4 +33,16 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# Ignore built assets
+/app/assets/builds/
+
+# Ignore any local environment files (if present)
 .env
+.env.local
+.env.*.local
+
+# Ignore node_modules (if you have it)
+/node_modules/
+
+# Ignore by default
+.DS_Store
