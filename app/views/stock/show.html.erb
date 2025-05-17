@@ -1,0 +1,5 @@
+<h1>Stock Chart for <%= @stock_symbol %></h1>
+
+<div id="stock-chart-root" data-symbol="<%= @stock_symbol %>"></div>
+
+<%= javascript_include_tag "application", "data-turbo-track": "reload" %>

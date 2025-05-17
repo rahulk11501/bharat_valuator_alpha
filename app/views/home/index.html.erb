@@ -1,0 +1,11 @@
+<h1>Popular Stocks</h1>
+
+<ul>
+  <% @stocks.each do |stock| %>
+    <li>
+      <a href="<%= stock_path(stock[:symbol]) %>">
+        <%= stock[:name] %> (<%= stock[:symbol] %>)
+      </a>
+    </li>
+  <% end %>
+</ul>
