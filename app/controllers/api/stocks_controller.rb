@@ -17,7 +17,7 @@ class Api::StocksController < ApplicationController
     response = HTTP.get(url)
     data = response.parse
 
-    if false #data["Monthly Adjusted Time Series"]
+    if false # data["Monthly Adjusted Time Series"]
       history = data["Monthly Adjusted Time Series"].map do |date, values|
         {
           date: date,

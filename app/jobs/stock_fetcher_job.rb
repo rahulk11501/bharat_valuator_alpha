@@ -1,9 +1,9 @@
-require 'http'
+require "http"
 
 class StockFetcherJob < ApplicationJob
   queue_as :default
 
-  API_KEY = ENV['ALPHA_VANTAGE_API_KEY']
+  API_KEY = ENV["ALPHA_VANTAGE_API_KEY"]
   BASE_URL = "https://www.alphavantage.co/query"
 
   def perform(keyword)
@@ -16,7 +16,7 @@ class StockFetcherJob < ApplicationJob
       symbol = match["1. symbol"]
       name   = match["2. name"]
 
-      next unless symbol&.ends_with?('.NS')  # Only NSE symbols
+      next unless symbol&.ends_with?(".NS")  # Only NSE symbols
 
       price = fetch_price(symbol)
       pe_ratio = fetch_pe_ratio(symbol)
@@ -75,7 +75,7 @@ class StockFetcherJob < ApplicationJob
     })
 
     return nil unless response.status.success?
-    puts response.status, response.body.to_s
+    puts response.status, response.body
     data = response.parse
     data["PERatio"]&.to_f
   rescue StandardError => e
