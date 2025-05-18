@@ -1,20 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>BharatValuator</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload" %>
+
+    <!-- Pass current user info as JSON for React -->
+    <meta name="current-user" content='<%= current_user ? current_user.to_json(only: [:email, :id]) : "{}" %>' />
   </head>
 
-  <body>
-    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-4">
-      Dark mode supported content
-    </div>
 
-    <%= yield %>
+  <body class="bg-gray-100 text-gray-900",">
+    <%= render "layouts/navbar" if !user_signed_in? %>  <!-- Only render Rails navbar for guests -->
+
+    <% flash.each do |key, message| %>
+      <div class="p-4 text-white mb-4 <%= key == 'notice' ? 'bg-green-500' : 'bg-red-500' %> relative">
+        <%= message %>
+        <!-- Close button -->
+        <button class="absolute top-0 right-0 p-2 text-white" onclick="this.parentElement.style.display='none';">
+          &times;
+        </button>
+      </div>
+    <% end %>
+
+    <main class="p-4 max-w-7xl mx-auto">
+      <%= yield %>
+    </main>
+
   </body>
 </html>

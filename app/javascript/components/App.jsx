@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Stock from "./Stock";
 import DarkModeToggle from './DarkModeToggle';
+import Navbar from "./Navbar";
 
 import {
     Chart as ChartJS,
@@ -55,12 +56,19 @@ function App() {
 
 // AppContent component to use dark mode and routes
 function AppContent() {
-    const { isDarkMode } = useContext(ThemeContext); // Get dark mode value from context
+    const { isDarkMode } = useContext(ThemeContext);
+
+    // Parse current user from meta tag
+    const currentUserMeta = document.querySelector('meta[name="current-user"]');
+    const currentUser = currentUserMeta ? JSON.parse(currentUserMeta.content) : {};
 
     return (
-        <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors`}>
+        <div className={`min-h-screen ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"} transition-colors`}>
             <BrowserRouter>
-                {/* Dark mode toggle button */}
+                {/* Render React Navbar only if logged in */}
+                {currentUser && currentUser.email && <Navbar currentUser={currentUser} />}
+
+                {/* Dark mode toggle */}
                 <div className="p-4 flex justify-end">
                     <DarkModeToggle />
                 </div>
