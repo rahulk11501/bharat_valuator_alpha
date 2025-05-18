@@ -46,3 +46,6 @@
 
 # Ignore by default
 .DS_Store
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
