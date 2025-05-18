@@ -1,40 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from './App'; // Import the ThemeContext from App.jsx
 
 export default function DarkModeToggle() {
-    const [isDark, setIsDark] = useState(() => {
-        // Check localStorage for theme preference
-        const storedTheme = localStorage.getItem("theme");
-        const darkModeStatus = localStorage.getItem("darkMode");
-
-        // If theme is set to 'dark' and darkMode is not 'disabled', enable dark mode
-        if (storedTheme === "dark" && darkModeStatus !== "disabled") {
-            return true;
-        }
-
-        // Otherwise, use system preference
-        return !storedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    });
-
-    useEffect(() => {
-        // Update the document class and localStorage whenever isDark state changes
-        if (isDark) {
-            document.documentElement.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-            localStorage.setItem("darkMode", "enabled");
-        } else {
-            document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-            localStorage.setItem("darkMode", "disabled");
-        }
-    }, [isDark]);
+    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext); // Get context values
 
     return (
         <button
-            onClick={() => setIsDark(!isDark)}
+            onClick={() => setIsDarkMode(!isDarkMode)} // Toggle dark mode
             className={`px-3 py-1 rounded transition-colors duration-200 
-                ${isDark ? 'bg-gray-700 text-white' : 'bg-gray-200 text-black'}`}
+                ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-200 text-black'}`}
         >
-            {isDark ? "🌙 Dark Mode" : "🌞 Light Mode"}
+            {isDarkMode ? "🌙 Dark Mode" : "🌞 Light Mode"}
         </button>
     );
 }
