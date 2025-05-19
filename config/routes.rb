@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   get "*path", to: "react#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
   namespace :api do
-    resources :stocks, only: [ :index, :show ]
+    resources :stocks, only: [:index, :show] do
+      collection do
+        get "search", to: "stocks#search"
+      end
+    end
   end
 end

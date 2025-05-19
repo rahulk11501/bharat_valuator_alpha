@@ -42,4 +42,12 @@ class Api::StocksController < ApplicationController
       render json: { symbol: symbol, history: static_history }
     end
   end
+
+  def search
+    keyword = params[:query]
+    url = URI("https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=#{keyword}&apikey=#{ENV['ALPHA_VANTAGE_API_KEY']}")
+
+    response = Net::HTTP.get(url)
+    render json: JSON.parse(response)
+  end
 end
