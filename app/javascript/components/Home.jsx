@@ -19,8 +19,7 @@ export default function Home() {
                 <h1 className="text-4xl font-semibold mb-6 text-center">Popular Stocks</h1>
 
                 {/* Stock Search Box */}
-                <StockSearch /> {/* 👈 injected search component */}
-
+                <StockSearch />
                 <ul className="space-y-4">
                     {stocks.map(({ symbol, name }) => (
                         <li key={symbol}
