@@ -1,31 +1,65 @@
-import React, { useEffect, useState, useContext } from "react";
-import { ThemeContext } from './App';
+import React, { useEffect, useState } from "react";
 import StockSearch from "./StockSearch";
 import PopularStocks from "./PopularStocks";
 import WatchlistStocks from "./WatchlistStocks";
+import ValuationModelForm from "./ValuationModelForm";
+import ValuationModelSelector from "./ValuationModelSelector";
 
 export default function Home() {
-    const { isDarkMode } = useContext(ThemeContext);
     const [popularStocks, setPopularStocks] = useState([]);
     const [watchlist, setWatchlist] = useState([]);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [selectedSymbol, setSelectedSymbol] = useState("RELIANCE.BSE");
 
     useEffect(() => {
         fetch("/api/stocks")
-            .then((res) => res.json())
-            .then(setPopularStocks);
+            .then(res => res.json())
+            .then(data => setPopularStocks(data))
+            .catch(() => setPopularStocks([]));
 
         fetch("/api/watchlists")
-            .then((res) => res.json())
-            .then(setWatchlist);
+            .then(res => res.json())
+            .then(data => setWatchlist(data))
+            .catch(() => setWatchlist([]));
+
+        const darkModePref = localStorage.getItem("darkMode") === "true";
+        setIsDarkMode(darkModePref);
     }, []);
 
+    const toggleDarkMode = () => {
+        const newMode = !isDarkMode;
+        setIsDarkMode(newMode);
+        localStorage.setItem("darkMode", newMode);
+    };
+
     return (
-        <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
-            <div className="max-w-7xl mx-auto p-6">
-                <StockSearch />
-                <PopularStocks stocks={popularStocks} isDarkMode={isDarkMode} />
-                <WatchlistStocks watchlist={watchlist} isDarkMode={isDarkMode} />
-            </div>
+        <div className={isDarkMode ? "bg-gray-900 text-white min-h-screen" : "bg-white text-gray-900 min-h-screen"}>
+            <header className="p-4 flex justify-between items-center">
+                <h1 className="text-2xl font-bold">BharatValuator</h1>
+                <button
+                    onClick={toggleDarkMode}
+                    className="border px-3 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                >
+                    {isDarkMode ? "Light Mode" : "Dark Mode"}
+                </button>
+            </header>
+
+            <main className="p-4 max-w-4xl mx-auto">
+                <StockSearch onSelect={setSelectedSymbol} />
+
+                <div className="mt-6">
+                    <ValuationModelForm />
+                    <ValuationModelSelector selectedSymbol={selectedSymbol} />
+                </div>
+
+                <div className="mt-8">
+                    <PopularStocks stocks={popularStocks} isDarkMode={isDarkMode} />
+                </div>
+
+                <div className="mt-8">
+                    <WatchlistStocks watchlist={watchlist} isDarkMode={isDarkMode} />
+                </div>
+            </main>
         </div>
     );
 }
