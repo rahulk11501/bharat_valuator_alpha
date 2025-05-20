@@ -10,5 +10,7 @@ Rails.application.routes.draw do
         get "search", to: "stocks#search"
       end
     end
+
+    resources :watchlists, only: [:index, :create, :destroy]
   end
 end
