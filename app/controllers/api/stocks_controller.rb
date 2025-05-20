@@ -17,7 +17,10 @@ class Api::StocksController < ApplicationController
     response = HTTP.get(url)
     data = response.parse
 
-    if false # data["Monthly Adjusted Time Series"]
+    # Replace `current_user` with your actual auth method
+    is_in_watchlist = current_user&.watchlists&.exists?(stock_symbol: symbol)
+
+    if false # Replace with: if data["Monthly Adjusted Time Series"]
       history = data["Monthly Adjusted Time Series"].map do |date, values|
         {
           date: date,
@@ -25,12 +28,8 @@ class Api::StocksController < ApplicationController
         }
       end.sort_by { |h| h[:date] }
 
-      # Filter by your value-investing ranges if needed here
-
-      render json: { symbol:, history: }
+      render json: { symbol: symbol, history: history, watchlist: is_in_watchlist }
     else
-      # render json: { error: "Invalid symbol or no data" }, status: :not_found
-
       static_history = [
         { date: "2024-04-30", close: rand(100..200).to_f },
         { date: "2024-03-31", close: rand(100..200).to_f },
@@ -39,9 +38,14 @@ class Api::StocksController < ApplicationController
         { date: "2023-12-31", close: rand(100..200).to_f }
       ]
 
-      render json: { symbol: symbol, history: static_history }
+      render json: {
+        symbol: symbol,
+        history: static_history,
+        watchlist: is_in_watchlist
+      }
     end
   end
+
 
   def search
     keyword = params[:query]

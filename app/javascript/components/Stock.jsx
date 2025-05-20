@@ -16,8 +16,8 @@ export default function Stock() {
     const { symbol } = useParams();
     const [data, setData] = useState(null);
     const [range, setRange] = useState("6M");
-    const [watchlist, setWatchlist] = useState([]);
-    const [message, setMessage] = useState(null);  // For success/error messages
+    const [watchlist, setWatchlist] = useState(false); // now a boolean
+    const [message, setMessage] = useState(null);
     const { isDarkMode } = useContext(ThemeContext);
 
     useEffect(() => {
@@ -38,24 +38,20 @@ export default function Stock() {
                         },
                     ],
                 });
+
+                setWatchlist(result.watchlist || false); // update boolean watchlist
             });
     }, [symbol, range]);
 
-    useEffect(() => {
-        axios.get("/api/watchlists")
-            .then((res) => setWatchlist(res.data))
-            .catch(() => setWatchlist([]));
-    }, []);
-
     const showMessage = (msg) => {
         setMessage(msg);
-        setTimeout(() => setMessage(null), 3000); // hide after 3s
+        setTimeout(() => setMessage(null), 3000);
     };
 
     const addToWatchlist = () => {
         axios.post("/api/watchlists", { stock_symbol: symbol })
-            .then((res) => {
-                setWatchlist(res.data);
+            .then(() => {
+                setWatchlist(true);
                 showMessage("Added to watchlist!");
             })
             .catch((err) => {
@@ -66,8 +62,8 @@ export default function Stock() {
 
     const removeFromWatchlist = () => {
         axios.delete(`/api/watchlists/${symbol}`)
-            .then((res) => {
-                setWatchlist(res.data);
+            .then(() => {
+                setWatchlist(false);
                 showMessage("Removed from watchlist.");
             })
             .catch((err) => {
@@ -75,8 +71,6 @@ export default function Stock() {
                 showMessage("Failed to remove from watchlist.");
             });
     };
-
-    const isInWatchlist = watchlist.includes(symbol);
 
     return (
         <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'} transition-colors`}>
@@ -105,7 +99,7 @@ export default function Stock() {
                 )}
 
                 <div className="text-center mb-6">
-                    {isInWatchlist ? (
+                    {watchlist ? (
                         <button
                             onClick={removeFromWatchlist}
                             className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
