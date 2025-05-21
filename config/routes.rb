@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :valuations, only: [ :index, :create, :destroy ] do
       collection do
         post :evaluate
+        post :evaluate_all
       end
     end
   end

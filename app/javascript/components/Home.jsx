@@ -4,6 +4,7 @@ import PopularStocks from "./PopularStocks";
 import WatchlistStocks from "./WatchlistStocks";
 import ValuationModelForm from "./ValuationModelForm";
 import ValuationModelSelector from "./ValuationModelSelector";
+import EvaluateAllStocks from "./EvaluateAllStocks";
 
 export default function Home() {
     const [popularStocks, setPopularStocks] = useState([]);
@@ -34,15 +35,6 @@ export default function Home() {
 
     return (
         <div className={isDarkMode ? "bg-gray-900 text-white min-h-screen" : "bg-white text-gray-900 min-h-screen"}>
-            <header className="p-4 flex justify-between items-center">
-                <h1 className="text-2xl font-bold">BharatValuator</h1>
-                <button
-                    onClick={toggleDarkMode}
-                    className="border px-3 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-                >
-                    {isDarkMode ? "Light Mode" : "Dark Mode"}
-                </button>
-            </header>
 
             <main className="p-4 max-w-4xl mx-auto">
                 <StockSearch onSelect={setSelectedSymbol} />
@@ -50,6 +42,7 @@ export default function Home() {
                 <div className="mt-6">
                     <ValuationModelForm />
                     <ValuationModelSelector selectedSymbol={selectedSymbol} />
+                    <EvaluateAllStocks />
                 </div>
 
                 <div className="mt-8">

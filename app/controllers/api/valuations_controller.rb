@@ -35,6 +35,20 @@ class Api::ValuationsController < ApplicationController
     render json: { error: e.message }, status: :unprocessable_entity
   end
 
+  def evaluate_all
+    valuation_model = params[:valuation_model]
+    custom_formula = params[:custom_formula] # Optional
+
+    symbols = StockSymbolFetcher.fetch_all
+    results = symbols.map do |symbol|
+      stock_data = StockDataFetcher.fetch(symbol)
+      value = StockValuator.evaluate(stock_data, valuation_model, custom_formula)
+      { symbol: symbol, valuation: value }
+    end
+
+    render json: { results: results }, status: :ok
+  end
+
   private
 
   def model_params
