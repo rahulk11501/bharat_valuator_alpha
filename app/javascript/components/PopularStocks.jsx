@@ -1,25 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function PopularStocks({ stocks, isDarkMode }) {
+export default function PopularStocks({ stocks }) {
     return (
         <>
-            <h2 className="text-2xl font-bold mb-4">Popular Stocks</h2>
-            <ul className="space-y-4">
-                {stocks.map(({ symbol, name }) => (
-                    <li key={symbol} className={`p-4 rounded-lg shadow-md ${isDarkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
-                        <div className="flex justify-between items-center">
+            {stocks.length === 0 ? (
+                <p className="text-gray-500 dark:text-gray-400">No popular stocks found.</p>
+            ) : (
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {stocks.map(({ symbol, name }) => (
+                        <Link
+                            to={`/stock/${symbol}`}
+                            key={symbol}
+                            className="flex flex-col justify-between rounded-lg bg-gray-50 dark:bg-gray-700 p-3 shadow hover:shadow-lg transition-shadow duration-300 ease-in-out"
+                            style={{ minHeight: "75px" }} // Reduced height
+                        >
                             <div>
-                                <p className="font-semibold">{name}</p>
-                                <p className="text-sm text-gray-500">({symbol})</p>
+                                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-0.5">
+                                    {name}
+                                </h3>
+                                <p className="text-xs text-gray-600 dark:text-gray-300">{symbol}</p>
                             </div>
-                            <Link to={`/stock/${symbol}`} className="text-blue-500 hover:underline">
-                                View Details
-                            </Link>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+                            <span className="mt-1 text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                                View →
+                            </span>
+                        </Link>
+                    ))}
+                </div>
+            )}
         </>
     );
 }
