@@ -30,14 +30,15 @@ export default function Home() {
 
     return (
         <main className="max-w-6xl mx-auto p-4 space-y-10 min-h-screen">
-            {/* Modern Search Section */}
+
+            {/* 🔍 Search Section */}
             <section className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 transition duration-300">
                 <div className="transition-all duration-300 ease-in-out hover:scale-[1.01]">
                     <StockSearch onSelect={setSelectedSymbol} />
                 </div>
             </section>
 
-            {/* Popular Stocks Section */}
+            {/* 📈 Popular Stocks */}
             <section className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6">
                 <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
                     📈 Popular Stocks
@@ -45,7 +46,7 @@ export default function Home() {
                 <PopularStocks stocks={popularStocks} />
             </section>
 
-            {/* Watchlist Section */}
+            {/* ⭐ Watchlist */}
             <section className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6">
                 <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
                     ⭐ My Watchlist
@@ -53,27 +54,27 @@ export default function Home() {
                 <WatchlistStocks watchlist={watchlist} />
             </section>
 
-            {/* Valuation Tool Section */}
-            <section className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg transition divide-y divide-gray-200 dark:divide-gray-800">
+            {/* 🧮 Valuation Tool */}
+            <section className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg divide-y divide-gray-200 dark:divide-gray-800">
                 <h2 className="text-2xl font-bold p-6 text-gray-900 dark:text-white">
                     🧮 Valuation Tool
                 </h2>
 
                 {/* Accordion Step 1 */}
                 <button
-                    onClick={() => toggleStep("custom")}
+                    onClick={() => toggleStep("evaluate")}
                     className="flex justify-between items-center w-full p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition"
                 >
                     <span className="text-lg font-medium text-gray-900 dark:text-white">
-                        ✏️ Create Custom Valuation Model
+                        🧠 Evaluate All Stocks
                     </span>
                     <span className="text-2xl text-gray-400 dark:text-gray-300">
-                        {openStep === "custom" ? "−" : "+"}
+                        {openStep === "evaluate" ? "−" : "+"}
                     </span>
                 </button>
-                {openStep === "custom" && (
-                    <div className="p-6 pt-0 transition-all duration-300">
-                        <ValuationModelForm />
+                {openStep === "evaluate" && (
+                    <div className="p-6 pt-4 transition-all duration-300">
+                        <EvaluateAllStocks />
                     </div>
                 )}
 
@@ -90,26 +91,26 @@ export default function Home() {
                     </span>
                 </button>
                 {openStep === "select" && (
-                    <div className="p-6 pt-0 transition-all duration-300">
+                    <div className="p-6 pt-4 transition-all duration-300">
                         <ValuationModelSelector selectedSymbol={selectedSymbol} />
                     </div>
                 )}
 
                 {/* Accordion Step 3 */}
                 <button
-                    onClick={() => toggleStep("evaluate")}
+                    onClick={() => toggleStep("custom")}
                     className="flex justify-between items-center w-full p-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition"
                 >
                     <span className="text-lg font-medium text-gray-900 dark:text-white">
-                        🧠 Evaluate All Stocks
+                        ✏️ Create Custom Valuation Model
                     </span>
                     <span className="text-2xl text-gray-400 dark:text-gray-300">
-                        {openStep === "evaluate" ? "−" : "+"}
+                        {openStep === "custom" ? "−" : "+"}
                     </span>
                 </button>
-                {openStep === "evaluate" && (
-                    <div className="p-6 pt-0 transition-all duration-300">
-                        <EvaluateAllStocks />
+                {openStep === "custom" && (
+                    <div className="p-6 pt-4 transition-all duration-300">
+                        <ValuationModelForm />
                     </div>
                 )}
             </section>
