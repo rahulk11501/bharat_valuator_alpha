@@ -1,111 +1,141 @@
 
-# BharatValuator
+# Bharat Valuator
 
-A value investing stock valuation app built with Rails 8 and React.
+Bharat Valuator is a modern stock valuation app that leverages the Alpha Vantage API along with local mock data for efficient stock information retrieval and valuation. It features a Rails backend and a React + Tailwind CSS frontend.
 
 ---
 
-## Setup
+## Current Features
 
-### Prerequisites
+### Backend
 
-- Ruby 3.x
-- Rails 8.x
-- PostgreSQL
-- Node.js (for building React frontend)
+- **Data Management:**  
+  - Static configuration and constants are stored in YAML files under `lib/data/app`  
+  - Mock/dummy stock and historical data are stored in YAML files under `lib/data/dummy`  
+  - All YAML data is loaded **once on app startup** into an in-memory `DataStore` module for quick access without repeated file reads
 
-### Installation
+- **API Endpoints:**  
+  - `GET /api/stocks`  
+    Returns a predefined list of popular stocks from the dummy YAML file  
+  - `GET /api/stocks/:symbol`  
+    Returns monthly adjusted closing price history for the stock symbol (served from dummy data currently)  
+  - `GET /api/stocks/search?query=keyword`  
+    Searches symbols using Alpha Vantage live API (configurable via YAML)
 
-1. Clone the repository:
+- **Environment Agnostic Dummy Data:**  
+  Dummy/mock data is generic and used consistently regardless of environment to facilitate open source collaboration and local development.
 
-   ```bash
-   git clone <your-repo-url>
-   cd <your-project-folder>
-   ```
+---
 
-2. Install Ruby gems:
+### Backend Architecture Highlights
 
+- **YAML Data Loader:**  
+  On startup, the `DataStore` module loads and caches all YAML files under `lib/data` directories to avoid IO overhead at runtime.
+
+- **Controller Usage:**  
+  Controllers read cached data for fast responses and use live API calls only when necessary.
+
+- **Extensibility:**  
+  Easily extend dummy data or add new config by editing respective YAML files without touching code.
+
+---
+
+### Frontend Overview
+
+The frontend is a modern React + Tailwind CSS SPA that interfaces with the Rails backend to provide a sleek stock valuation experience.
+
+- **Mobile-first Responsive UI:**  
+  Designed for smooth usage across devices from phones to desktops.
+
+- **Stock Listing & Search:**  
+  Fetches and displays the list of stocks from the backend’s `/api/stocks` endpoint.  
+  Search functionality queries the backend `/api/stocks/search` API.
+
+- **Stock Details View:**  
+  Shows monthly adjusted historical stock price data fetched from `/api/stocks/:symbol`.
+
+- **Dark Mode Toggle:**  
+  User can switch between light and dark themes globally.
+
+- **Clean UI Components:**  
+  Uses reusable React components with conditional styling based on theme.
+
+---
+
+## Tech Stack
+
+- Backend: Ruby on Rails 8, PostgreSQL  
+- Frontend: React 18, Tailwind CSS  
+- External API: Alpha Vantage
+
+---
+
+## Getting Started
+
+### Backend Setup
+
+1. **Set environment variables:**  
+   - `ALPHA_VANTAGE_API_KEY` — your API key for Alpha Vantage service
+
+2. **Install dependencies:**  
    ```bash
    bundle install
    ```
 
-3. Setup the database:
-
+3. **Run the Rails server:**  
    ```bash
-   rails db:create db:migrate
+   rails server
    ```
 
-4. Install Node dependencies:
+4. **Explore API endpoints:**  
+   - List stocks: `GET /api/stocks`  
+   - Stock history: `GET /api/stocks/:symbol`  
+   - Search stocks: `GET /api/stocks/search?query=your_keyword`
 
+---
+
+### Frontend Setup
+
+1. Navigate to the frontend folder:  
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:  
    ```bash
    npm install
    ```
 
-5. Setup environment variables:
-
-   - Create `.env` file or set environment variable `ALPHA_VANTAGE_API_KEY` with your Alpha Vantage API key.
-
-6. Build frontend assets:
-
+3. Start the development server:  
    ```bash
-   npm run build
+   npm start
    ```
 
----
-
-## Running the app
-
-Start the Rails server:
-
-```bash
-rails server
-```
-
-Open your browser at `http://localhost:3000`
+4. Open your browser at `http://localhost:3000`
 
 ---
 
-## Features
+## Future Plans
 
-- SPA frontend with React and React Router
-- Chart.js powered stock charts with selectable time ranges (1M, 3M, 6M, 1Y, 5Y)
-- Real-time stock data fetched from Alpha Vantage API (monthly adjusted time series)
-- Fallback to static random data when API fails or no data is available
-- Backend API under `/api/stocks`
-
----
-
-## File Structure
-
-```
-app/javascript/
-├── application.js       # Entry point for React SPA
-├── components/
-│   ├── App.jsx          # Main React component with routing
-│   ├── Home.jsx         # Home page showing popular stocks
-│   └── Stock.jsx        # Stock detail page with chart
-```
+- Add real-time stock valuation models and calculations  
+- Implement user authentication and watchlists  
+- Add frontend enhancements: advanced valuation tool UI, chart visualizations, push notifications  
+- Background jobs for bulk stock evaluations  
+- Caching and rate-limiting Alpha Vantage API calls  
+- Improve UI animations and transitions for better UX  
 
 ---
 
-## Routes
+## Contributing
 
-```ruby
-root "react#index"
-get '*path', to: "react#index", constraints: ->(req) { !req.xhr? && req.format.html? }
-
-namespace :api do
-  resources :stocks, only: [:index, :show]
-end
-```
+Contributions are welcome! Feel free to submit issues or pull requests. Please follow the coding standards and include tests where applicable.
 
 ---
 
-## Notes
+## License
 
-- The ReactController#index serves the SPA root with `<div id="root"></div>`
-- The stock chart is rendered within the React SPA via React components
-- No debug logging currently enabled
-- Uses esbuild for bundling React and JSX
+This project is licensed under the MIT License.
 
 ---
+
+If you need help with setup, usage, or want to contribute, please reach out!
