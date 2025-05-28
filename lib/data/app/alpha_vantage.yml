@@ -1,0 +1,4 @@
+base_url: "https://www.alphavantage.co/query"
+functions:
+  time_series: "TIME_SERIES_MONTHLY_ADJUSTED"
+  search: "SYMBOL_SEARCH"
