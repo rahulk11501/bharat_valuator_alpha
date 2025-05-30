@@ -4,10 +4,10 @@ class PortfolioAdapter
     adapter_key = ENV.fetch("PORTFOLIO_ADAPTER", "mock")
 
     adapter_class = case adapter_key
-                    when "zerodha" then Portfolio::ZerodhaAdapter
-                    # when "angel" then Portfolio::AngelAdapter
-                    else Portfolio::MockAdapter
-                    end
+    when "zerodha" then Portfolio::ZerodhaAdapter
+    # when "angel" then Portfolio::AngelAdapter
+    else Portfolio::MockAdapter
+    end
 
     adapter_class.new(user)
   end
