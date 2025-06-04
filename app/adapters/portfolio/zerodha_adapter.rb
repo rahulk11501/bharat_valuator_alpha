@@ -1,6 +1,6 @@
 # app/adapters/portfolio/zerodha_adapter.rb
-require 'net/http'
-require 'json'
+require "net/http"
+require "json"
 
 module Portfolio
   class ZerodhaAdapter
