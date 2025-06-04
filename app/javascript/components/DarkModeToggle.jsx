@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ThemeContext } from './App'; // Import the ThemeContext from App.jsx
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function DarkModeToggle() {
     const { isDarkMode, setIsDarkMode } = useContext(ThemeContext); // Get context values

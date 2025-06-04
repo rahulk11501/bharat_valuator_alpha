@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Line } from "react-chartjs-2";
-import { ThemeContext } from './App';
+import { ThemeContext } from "../context/ThemeContext";
 import axios from "../utils/axiosInstance";
 
 const ranges = {

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "./App";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function StockSearch() {
     const [query, setQuery] = useState("");

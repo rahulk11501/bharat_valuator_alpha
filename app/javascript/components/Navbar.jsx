@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { ThemeContext } from "./App";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function Navbar({ currentUser }) {
     const [mobileOpen, setMobileOpen] = useState(false);

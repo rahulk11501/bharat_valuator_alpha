@@ -3,8 +3,8 @@ module DataStore
     attr_reader :stock_list, :time_series_sample, :alpha_vantage_config
 
     def load_data!
-      @stock_list = load_yaml("stock_list.yml", "dummy")
       @time_series_sample = load_yaml("time_series_sample.yml", "dummy")
+      @stock_list = load_yaml("stock_list.yml", "dummy")
       @alpha_vantage_config = load_yaml("alpha_vantage.yml", "app")
     end
 
