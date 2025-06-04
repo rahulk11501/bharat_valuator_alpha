@@ -1,6 +1,6 @@
 // app/javascript/components/App.jsx
 import React from "react";
-import { ThemeProvider } from "../context/ThemeContext";
+import { ThemeProvider } from "../../context/ThemeContext";
 import AppContent from "./AppContent";
 
 import {

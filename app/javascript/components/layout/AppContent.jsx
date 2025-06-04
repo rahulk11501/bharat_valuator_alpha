@@ -1,9 +1,9 @@
 // app/javascript/components/AppContent.jsx
 import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeContext";
-import Home from "./Home";
-import Stock from "./Stock";
+import { ThemeContext } from "../../context/ThemeContext";
+import Home from "../Home";
+import Stock from "../Stock";
 import Navbar from "./Navbar";
 import DarkModeToggle from "./DarkModeToggle";
 
