@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import StockSearch from "./StockSearch";
 import PopularStocks from "./PopularStocks";
 import WatchlistStocks from "./WatchlistStocks";
-import ValuationModelForm from "./ValuationModelForm";
-import ValuationModelSelector from "./ValuationModelSelector";
-import EvaluateAllStocks from "./EvaluateAllStocks";
+import ValuationModelForm from "./valuation/ValuationModelForm";
+import ValuationModelSelector from "./valuation/ValuationModelSelector";
+import EvaluateAllStocks from "./valuation/EvaluateAllStocks";
 
 export default function Home() {
     const [popularStocks, setPopularStocks] = useState([]);

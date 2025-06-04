@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../utils/axiosInstance";
+import axios from "../../utils/axiosInstance";
 
 export default function ValuationModelSelector({ selectedSymbol }) {
     const [models, setModels] = useState([]);
