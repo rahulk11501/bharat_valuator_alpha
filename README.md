@@ -92,29 +92,6 @@ The frontend is a modern React + Tailwind CSS SPA that interfaces with the Rails
    - Stock history: `GET /api/stocks/:symbol`  
    - Search stocks: `GET /api/stocks/search?query=your_keyword`
 
----
-
-### Frontend Setup
-
-1. Navigate to the frontend folder:  
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:  
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:  
-   ```bash
-   npm start
-   ```
-
-4. Open your browser at `http://localhost:3000`
-
----
-
 ## Future Plans
 
 - Add real-time stock valuation models and calculations  
