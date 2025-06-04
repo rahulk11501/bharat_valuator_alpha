@@ -1,4 +1,3 @@
-// AppContent.jsx
 // app/javascript/components/AppContent.jsx
 import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -15,7 +14,10 @@ function AppContent() {
     const currentUser = currentUserMeta ? JSON.parse(currentUserMeta.content) : {};
 
     return (
-        <div className={`min-h-screen ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"} transition-colors`}>
+        <div
+            className={`min-h-screen ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+                } transition-colors`}
+        >
             <BrowserRouter>
                 {currentUser?.email && <Navbar currentUser={currentUser} />}
                 <div className="p-4 flex justify-end">

@@ -1,9 +1,10 @@
+// Navbar.jsx
 import React, { useState, useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
 export default function Navbar({ currentUser }) {
     const [mobileOpen, setMobileOpen] = useState(false);
-    const { isDarkMode } = useContext(ThemeContext); // Access dark mode state
+    const { isDarkMode } = useContext(ThemeContext);
 
     const handleSignOut = async (e) => {
         e.preventDefault();
@@ -13,7 +14,7 @@ export default function Navbar({ currentUser }) {
             method: "DELETE",
             headers: {
                 "X-CSRF-Token": csrfToken,
-                "Accept": "application/json",
+                Accept: "application/json",
                 "Content-Type": "application/json",
             },
             credentials: "same-origin",
@@ -26,8 +27,9 @@ export default function Navbar({ currentUser }) {
         }
     };
 
-    // Conditionally apply classes based on isDarkMode
-    const navBgClass = isDarkMode ? "bg-gray-900 text-white shadow-md" : "bg-white text-black shadow-md";
+    const navBgClass = isDarkMode
+        ? "bg-gray-900 text-white shadow-md"
+        : "bg-white text-black shadow-md";
     const linkBaseClass = "hover:underline";
     const logoClass = isDarkMode ? "text-indigo-400" : "text-indigo-600";
     const loginClass = isDarkMode ? "text-blue-400" : "text-blue-600";
@@ -37,9 +39,10 @@ export default function Navbar({ currentUser }) {
     return (
         <nav className={`${navBgClass} px-4 py-3 sm:px-6`}>
             <div className="max-w-7xl mx-auto flex justify-between items-center">
-                {/* Logo */}
                 <div className="text-xl font-semibold">
-                    <a href="/" className={logoClass}>BharatValuator</a>
+                    <a href="/" className={logoClass}>
+                        BharatValuator
+                    </a>
                 </div>
 
                 {/* Desktop Links */}
@@ -90,7 +93,10 @@ export default function Navbar({ currentUser }) {
 
             {/* Mobile Menu */}
             {mobileOpen && (
-                <div className={`sm:hidden mt-2 space-y-2 px-4 ${isDarkMode ? "text-white" : "text-black"}`}>
+                <div
+                    className={`sm:hidden mt-2 space-y-2 px-4 ${isDarkMode ? "text-white" : "text-black"
+                        }`}
+                >
                     {currentUser && currentUser.email ? (
                         <>
                             <div className="text-sm">Hi, {currentUser.email}</div>

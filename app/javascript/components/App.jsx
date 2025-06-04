@@ -1,7 +1,7 @@
 // app/javascript/components/App.jsx
 import React from "react";
 import { ThemeProvider } from "../context/ThemeContext";
-import AppContent from "./AppContent"; // still inside components
+import AppContent from "./AppContent";
 
 import {
     Chart as ChartJS,
