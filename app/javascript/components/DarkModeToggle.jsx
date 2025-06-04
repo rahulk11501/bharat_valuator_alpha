@@ -2,15 +2,15 @@ import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
 export default function DarkModeToggle() {
-    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext); // Get context values
+    const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
 
     return (
         <button
-            onClick={() => setIsDarkMode(!isDarkMode)} // Toggle dark mode
-            className={`px-3 py-1 rounded transition-colors duration-200 
-                ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-200 text-black'}`}
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition"
+            aria-label="Toggle dark mode"
         >
-            {isDarkMode ? "🌙 Dark Mode" : "🌞 Light Mode"}
+            {isDarkMode ? "🌙 Dark" : "☀️ Light"}
         </button>
     );
 }

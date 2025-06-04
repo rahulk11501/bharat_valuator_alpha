@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const instance = axios.create({
+const axiosInstance = axios.create({
     headers: {
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.content,
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.content || "",
     },
-    withCredentials: true, // send cookies (important if you're using Devise)
+    withCredentials: true, // send cookies, e.g. for Devise auth
 });
 
-export default instance;
+export default axiosInstance;

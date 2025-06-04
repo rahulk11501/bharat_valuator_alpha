@@ -2,7 +2,10 @@
 import React, { createContext } from "react";
 import useDarkMode from "../hooks/useDarkMode";
 
-export const ThemeContext = createContext();
+export const ThemeContext = createContext({
+    isDarkMode: false,
+    setIsDarkMode: () => { },
+});
 
 export const ThemeProvider = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useDarkMode();

@@ -8,13 +8,13 @@ export default function useDarkMode() {
 
     useEffect(() => {
         const className = "dark";
-        const bodyClass = document.documentElement.classList;
+        const rootElement = document.documentElement.classList;
 
         if (isDarkMode) {
-            bodyClass.add(className);
+            rootElement.add(className);
             localStorage.setItem("darkMode", "enabled");
         } else {
-            bodyClass.remove(className);
+            rootElement.remove(className);
             localStorage.setItem("darkMode", "disabled");
         }
     }, [isDarkMode]);
